@@ -1,0 +1,96 @@
+import 'package:flutter/material.dart';
+
+import 'app.dart';
+
+abstract class RouteNames {
+  const RouteNames._();
+
+  static const initialRoute = home;
+
+  static const home = '/';
+  static const counter = '/counter';
+}
+
+abstract class RoutesBuilder {
+  const RoutesBuilder._();
+
+  static final routes = <String, Widget Function(BuildContext)>{
+    RouteNames.home: (_) => const HomePage(
+          title: ArgsAndResultsDemoApp.title,
+        ),
+    RouteNames.counter: (context) => CounterPage(
+          title: ArgsAndResultsDemoApp.title,
+          initialCount: ModalRoute.of(context)?.settings.arguments as int?,
+        ),
+  };
+
+  static Route<Object?>? onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case RouteNames.home:
+        return MaterialPageRoute(
+          builder: (_) => const HomePage(
+            title: ArgsAndResultsDemoApp.title,
+          ),
+          settings: settings,
+        );
+
+      case RouteNames.counter:
+        return MaterialPageRoute<int?>(
+          builder: (_) => CounterPage(
+            title: ArgsAndResultsDemoApp.title,
+            initialCount: settings.arguments as int?,
+          ),
+          settings: settings,
+        );
+    }
+
+    // final builder = routes[settings.name];
+    // if (builder != null) {
+    //   return MaterialPageRoute(
+    //     builder: builder,
+    //     settings: settings,
+    //   );
+    // }
+
+    return null;
+  }
+
+  static Route<Object?>? onUnknownRoute<T>(RouteSettings settings) {
+    return MaterialPageRoute<T>(
+      builder: (context) => UnknownPage(
+        routeName: settings.name,
+      ),
+      settings: settings,
+    );
+  }
+
+  static List<Route<Object?>> onGenerateInitialRoutes(String initialRoutes) {
+    final routes = <Route>[];
+
+    if (initialRoutes.isEmpty || !initialRoutes.startsWith('/')) {
+      print('invalid initialRoutes ($initialRoutes)');
+    } else {
+      final names = initialRoutes.substring(1).split('/');
+      for (final name in names) {
+        final route = onGenerateRoute(
+          RouteSettings(name: '/$name'),
+        );
+        if (route != null) {
+          routes.add(route);
+        } else {
+          routes.clear();
+          break;
+        }
+      }
+    }
+
+    if (routes.isEmpty) {
+      print('generated empty initial routes ($initialRoutes)');
+      routes.add(
+        onGenerateRoute(const RouteSettings(name: RouteNames.home))!,
+      );
+    }
+
+    return routes;
+  }
+}
