@@ -131,6 +131,7 @@ class CounterPage extends StatefulWidget {
 
 class _CounterPageState extends State<CounterPage> {
   int _counter = 0;
+  bool _enabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -152,8 +153,16 @@ class _CounterPageState extends State<CounterPage> {
                 '$_counter',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
+              Switch.adaptive(
+                value: _enabled,
+                onChanged: (value) {
+                  setState(() {
+                    _enabled = value;
+                  });
+                },
+              ),
               CupertinoButton(
-                onPressed: _incrementCounter,
+                onPressed: _enabled ? _incrementCounter : null,
                 child: const Icon(Icons.add),
               ),
               CupertinoButton(
@@ -180,8 +189,16 @@ class _CounterPageState extends State<CounterPage> {
                 '$_counter',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
+              Switch.adaptive(
+                value: _enabled,
+                onChanged: (value) {
+                  setState(() {
+                    _enabled = value;
+                  });
+                },
+              ),
               ElevatedButton(
-                onPressed: _incrementCounter,
+                onPressed: _enabled ? _incrementCounter : null,
                 child: const Icon(Icons.add),
               ),
               ElevatedButton(

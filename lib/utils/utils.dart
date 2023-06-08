@@ -50,7 +50,7 @@ class MyScaffold extends StatelessWidget {
 
 class MyButton extends StatelessWidget {
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const MyButton({
     required this.child,

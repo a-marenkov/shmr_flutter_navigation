@@ -5,18 +5,20 @@ import 'observer.dart';
 import 'routes.dart';
 
 class NavigationManager {
-  NavigationManager._();
+  final String tag;
+  
+  NavigationManager._(this.tag);
 
-  static final root = NavigationManager._();
+  static final instance = NavigationManager._('root');
   static final tabs = Map<int, NavigationManager>.unmodifiable({
-    0: NavigationManager._(),
-    1: NavigationManager._(),
+    0: NavigationManager._('tab_1'),
+    1: NavigationManager._('tab_2'),
   });
 
   final key = GlobalKey<NavigatorState>();
 
-  final observers = <NavigatorObserver>[
-    NavigationLogger(),
+  late final observers = <NavigatorObserver>[
+    NavigationLogger(tag),
   ];
 
   NavigatorState get _navigator => key.currentState!;

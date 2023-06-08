@@ -20,14 +20,14 @@ class CupertinoTabBarDemoApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // navigator key
-      navigatorKey: NavigationManager.root.key,
+      navigatorKey: NavigationManager.instance.key,
       // named routes setup
       initialRoute: RouteNames.initialRoute,
       onGenerateRoute: RoutesBuilder.onGenerateRoute,
       onUnknownRoute: RoutesBuilder.onUnknownRoute,
       onGenerateInitialRoutes: RoutesBuilder.onGenerateInitialRoutes,
       // navigator observers
-      navigatorObservers: NavigationManager.root.observers,
+      navigatorObservers: NavigationManager.instance.observers,
     );
   }
 }
@@ -52,11 +52,11 @@ class _HomePageState extends State<HomePage> {
       child: CupertinoTabScaffold(
         tabBuilder: (BuildContext context, int index) {
           return CupertinoTabView(
-            navigatorKey: NavigationManager.tabs[index]?.key,
-            onGenerateRoute: RoutesBuilder.onGenerateRoute,
-            onUnknownRoute: RoutesBuilder.onUnknownRoute,
-            navigatorObservers: NavigationManager.tabs[index]?.observers ??
-                const <NavigatorObserver>[],
+            // navigatorKey: NavigationManager.tabs[index]?.key,
+            // onGenerateRoute: RoutesBuilder.onGenerateRoute,
+            // onUnknownRoute: RoutesBuilder.onUnknownRoute,
+            // navigatorObservers: NavigationManager.tabs[index]?.observers ??
+            //     const <NavigatorObserver>[],
             builder: (context) => CupertinoPageScaffold(
               navigationBar: CupertinoNavigationBar(
                 middle: Text('${CupertinoTabBarDemoApp.title} ${_index + 1}'),
@@ -157,7 +157,7 @@ class _HomeContentState extends State<HomeContent> {
       ),
     );
     // final result = await NavigationManager.tabs[widget.index]?.openCounter(args);
-    // final result = await NavigationManager.root.openCounter(args);
+    // final result = await NavigationManager.instance.openCounter(args);
     setState(() {
       _lastCount = result;
     });

@@ -62,11 +62,11 @@ class ConfirmCloseCountDialog extends StatelessWidget {
             actions: [
               CupertinoDialogAction(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('Cancel'),
+                child: const Text('No'),
               ),
               CupertinoDialogAction(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Close'),
+                child: const Text('Yes'),
               ),
             ],
           )
@@ -76,11 +76,11 @@ class ConfirmCloseCountDialog extends StatelessWidget {
             actions: [
               SimpleDialogOption(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('CANCEL'),
+                child: const Text('NO'),
               ),
               SimpleDialogOption(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('CLOSE'),
+                child: const Text('YES'),
               ),
             ],
           );
@@ -105,12 +105,12 @@ class ConfirmCloseCountModal extends StatelessWidget {
             actions: [
               CupertinoActionSheetAction(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Close'),
+                child: const Text('Yes'),
               ),
               CupertinoActionSheetAction(
                 isDestructiveAction: true,
                 onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('Cancel'),
+                child: const Text('No'),
               ),
             ],
           )
@@ -125,12 +125,12 @@ class ConfirmCloseCountModal extends StatelessWidget {
                 ),
                 ListTile(
                   leading: const Icon(Icons.check),
-                  title: const Text('Close'),
+                  title: const Text('Yes'),
                   onTap: () => Navigator.of(context).pop(true),
                 ),
                 ListTile(
                   leading: const Icon(Icons.close),
-                  title: const Text('Cancel'),
+                  title: const Text('No'),
                   onTap: () => Navigator.of(context).pop(false),
                 ),
                 ListTile(
